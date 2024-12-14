@@ -1,16 +1,19 @@
-package main
-
-import (
-	"fmt"
-	"time"
-	// "sync"
-)
-
-func work() {
-	time.Sleep(time.Millisecond * 50)
-	fmt.Println("done")
-}
-
-func main() {
-	// необходимо в отдельных горутинах вызвать функцию work() 10 раз и дождаться результатов выполнения вызванных функций
-}
+package main 
+import ( 
+"fmt" 
+"sync" 
+) 
+func work() { 
+fmt.Println("Hello, World!") 
+} 
+func main() { 
+wg := sync.WaitGroup{} 
+wg.Add(10) 
+for i := 0; i < 10; i++ { 
+go func() { 
+work() 
+wg.Done() 
+}() 
+} 
+wg.Wait() 
+} 
